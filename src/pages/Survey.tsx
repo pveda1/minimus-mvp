@@ -14,6 +14,7 @@ interface SurveyData {
   website: string;
   targetDemographic: string;
   storeType: string;
+  location: string;
   linkedinUrl: string;
   similarBrands: string;
 }
@@ -28,6 +29,7 @@ const Survey = () => {
     website: "",
     targetDemographic: "",
     storeType: "",
+    location: "",
     linkedinUrl: "",
     similarBrands: "",
   });
@@ -36,7 +38,7 @@ const Survey = () => {
     e.preventDefault();
     
     // Validate minimum required fields
-    if (!formData.sellerName || !formData.productDescription || !formData.brandDescription || !formData.storeType) {
+    if (!formData.sellerName || !formData.productDescription || !formData.brandDescription || !formData.storeType || !formData.location) {
       toast.error("Please fill in all required fields");
       return;
     }
@@ -153,6 +155,20 @@ const Survey = () => {
                 placeholder="Boutique grocery, specialty health stores, farmers markets"
                 value={formData.storeType}
                 onChange={(e) => handleChange("storeType", e.target.value)}
+                className="bg-background"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="location" className="text-sm font-medium">
+                Preferred Store Location <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="location"
+                placeholder="New York, NY or Los Angeles, CA"
+                value={formData.location}
+                onChange={(e) => handleChange("location", e.target.value)}
                 className="bg-background"
                 required
               />

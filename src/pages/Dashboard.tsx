@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Mail, Users, Package, DollarSign, Award, TrendingUp, ExternalLink } from "lucide-react";
+import { ArrowLeft, Mail, Users, Package, DollarSign, Award, TrendingUp, ExternalLink, MapPin } from "lucide-react";
+import store1 from "@/assets/store-1.png";
+import store2 from "@/assets/store-2.png";
+import store3 from "@/assets/store-3.png";
+import store4 from "@/assets/store-4.png";
 
 interface StoreMatch {
   id: string;
@@ -26,7 +30,7 @@ const MOCK_MATCHES: StoreMatch[] = [
   {
     id: "1",
     name: "Green Valley Market",
-    logo: "🌿",
+    logo: store1,
     matchScore: 95,
     storeType: "Boutique Grocery",
     location: "Portland, OR",
@@ -41,7 +45,7 @@ const MOCK_MATCHES: StoreMatch[] = [
   {
     id: "2",
     name: "Wellness & Co",
-    logo: "💚",
+    logo: store2,
     matchScore: 89,
     storeType: "Specialty Health Store",
     location: "Seattle, WA",
@@ -56,7 +60,7 @@ const MOCK_MATCHES: StoreMatch[] = [
   {
     id: "3",
     name: "Urban Harvest",
-    logo: "🏪",
+    logo: store3,
     matchScore: 85,
     storeType: "Farmers Market Collective",
     location: "San Francisco, CA",
@@ -71,7 +75,7 @@ const MOCK_MATCHES: StoreMatch[] = [
   {
     id: "4",
     name: "Nourish Market",
-    logo: "🍃",
+    logo: store4,
     matchScore: 82,
     storeType: "Health Food Store",
     location: "Austin, TX",
@@ -139,9 +143,11 @@ const Dashboard = () => {
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Store Header */}
                 <div className="flex-shrink-0 flex items-start gap-4">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center text-3xl shadow-soft">
-                    {match.logo}
-                  </div>
+                  <img 
+                    src={match.logo} 
+                    alt={match.name}
+                    className="w-20 h-20 rounded-xl object-cover shadow-soft"
+                  />
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1">
                       <h3 className="text-xl font-bold text-foreground">{match.name}</h3>
@@ -149,7 +155,11 @@ const Dashboard = () => {
                         {match.matchScore}% Match
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">{match.storeType} • {match.location}</p>
+                    <p className="text-sm text-muted-foreground">{match.storeType}</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                      <MapPin className="h-3 w-3" />
+                      {match.location}
+                    </p>
                   </div>
                 </div>
 
