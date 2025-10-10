@@ -92,6 +92,7 @@ const MOCK_MATCHES: StoreMatch[] = [
 const Dashboard = () => {
   const navigate = useNavigate();
   const [surveyData, setSurveyData] = useState<any>(null);
+  const [matches, setMatches] = useState<StoreMatch[]>([]);
 
   useEffect(() => {
     const data = sessionStorage.getItem('surveyData');
@@ -99,7 +100,15 @@ const Dashboard = () => {
       navigate('/');
       return;
     }
-    setSurveyData(JSON.parse(data));
+    const parsedData = JSON.parse(data);
+    setSurveyData(parsedData);
+    
+    // Update mock matches with the survey location
+    const updatedMatches = MOCK_MATCHES.map(match => ({
+      ...match,
+      location: parsedData.location || match.location
+    }));
+    setMatches(updatedMatches);
   }, [navigate]);
 
   if (!surveyData) return null;
@@ -125,7 +134,7 @@ const Dashboard = () => {
               </div>
             </div>
             <Badge className="bg-accent text-accent-foreground px-4 py-2 text-sm font-semibold">
-              {MOCK_MATCHES.length} Perfect Matches
+              {matches.length} Perfect Matches
             </Badge>
           </div>
         </div>
@@ -134,7 +143,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid gap-6">
-          {MOCK_MATCHES.map((match, index) => (
+          {matches.map((match, index) => (
             <Card 
               key={match.id} 
               className="p-6 bg-gradient-card shadow-medium hover:shadow-strong transition-all duration-300 animate-fade-in border-border"
