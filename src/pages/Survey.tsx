@@ -206,7 +206,7 @@ const Survey = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="msrp">MSRP (Price to Consumers)</Label>
+                <Label htmlFor="msrp">Price to Consumers</Label>
                 <Input
                   id="msrp"
                   placeholder="e.g., $5.50"
@@ -435,7 +435,7 @@ const Survey = () => {
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="ethnic"
-                      checked={formData.storeTypes.includes("Italian/ethnic niche shops")}
+                      checked={formData.storeTypes.includes("Ethnic niche shops (ex: Italian")}
                       onCheckedChange={(checked) => handleCheckboxChange("storeTypes", "Italian/ethnic niche shops", checked as boolean)}
                     />
                     <Label htmlFor="ethnic" className="font-normal cursor-pointer">Italian/ethnic niche shops</Label>
