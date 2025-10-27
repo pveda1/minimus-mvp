@@ -125,7 +125,16 @@ const Dashboard = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex flex-col lg:flex-row gap-6">
-                  {/* Store Header */}
+                  {/* Store Photo */}
+                  <div className="flex-shrink-0">
+                    <img 
+                      src={`/src/assets/store-${(index % 4) + 1}.png`}
+                      alt={store.name}
+                      className="w-full lg:w-48 h-48 object-cover rounded-lg shadow-soft"
+                    />
+                  </div>
+
+                  {/* Store Details */}
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-4">
                       <div>
@@ -133,7 +142,7 @@ const Dashboard = () => {
                           <h3 className="text-xl font-bold text-foreground">{store.name}</h3>
                           <Badge variant="secondary" className="font-semibold flex items-center gap-1">
                             <Star className="h-3 w-3 fill-current" />
-                            CPG Score: {(store.cpq_score * 100).toFixed(0)}%
+                            Match Score: {(store.cpq_score * 100).toFixed(0)}%
                           </Badge>
                         </div>
                         <p className="text-sm text-muted-foreground flex items-center gap-1 mb-2">
@@ -162,20 +171,32 @@ const Dashboard = () => {
                       </div>
                     )}
 
-                    {/* Signals */}
-                    {store.signals && store.signals.length > 0 && (
-                      <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Why This Match?</h4>
-                        <ul className="space-y-1">
-                          {store.signals.map((signal, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="text-accent mt-1">•</span>
-                              <span>{signal}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    {/* Why This Match - Based on Survey */}
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-foreground mb-2">Why This Match?</h4>
+                      <ul className="space-y-1">
+                        {surveyData.nycNeighborhoods?.some((n: string) => 
+                          store.address_text.toLowerCase().includes(n.toLowerCase())
+                        ) && (
+                          <li className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            <span>Located in your target neighborhood</span>
+                          </li>
+                        )}
+                        {surveyData.productCategory && (
+                          <li className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            <span>Strong fit for {surveyData.productCategory} products</span>
+                          </li>
+                        )}
+                        {store.signals && store.signals.map((signal, idx) => (
+                          <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            <span>{signal}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
                     {/* Evidence URLs */}
                     {store.evidence_urls && store.evidence_urls.length > 0 && (
