@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      stores: {
+        Row: {
+          address_text: string
+          cpq_score: number
+          created_at: string
+          evidence_urls: string[] | null
+          id: string
+          name: string
+          niche_estimate: string | null
+          signals: string[] | null
+          website: string | null
+        }
+        Insert: {
+          address_text: string
+          cpq_score?: number
+          created_at?: string
+          evidence_urls?: string[] | null
+          id?: string
+          name: string
+          niche_estimate?: string | null
+          signals?: string[] | null
+          website?: string | null
+        }
+        Update: {
+          address_text?: string
+          cpq_score?: number
+          created_at?: string
+          evidence_urls?: string[] | null
+          id?: string
+          name?: string
+          niche_estimate?: string | null
+          signals?: string[] | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
